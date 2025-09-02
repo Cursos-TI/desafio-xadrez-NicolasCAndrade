@@ -1,32 +1,52 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
-// O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
+// 1. Definição de constantes para facilitar a manutenibilidade
+#define MOVIMENTOS_BISPO 5
+#define MOVIMENTOS_TORRE 5
+#define MOVIMENTOS_RAINHA 8
 
 int main() {
-    // Nível Novato - Movimentação das Peças
-    // Sugestão: Declare variáveis constantes para representar o número de casas que cada peça pode se mover.
+    // Apresentação do desafio
+    printf("--- Desafio de Xadrez - MateCheck: Nível Novato ---\n\n");
+    
+    // --- 2. Movimentação do Bispo (usando loop for) ---
+    printf("--- Movimentação do Bispo ---\n");
+    printf("O Bispo se move %d casas na diagonal superior direita.\n", MOVIMENTOS_BISPO);
+    
+    // O loop 'for' é ideal quando o número de iterações é conhecido.
+    // Ele simula os 5 movimentos do bispo.
+    for (int i = 0; i < MOVIMENTOS_BISPO; i++) {
+        // A regra diz para usar "Cima" e "Direita" para a diagonal
+        printf("Cima, Direita\n");
+    }
+    printf("\n"); // Adiciona uma linha em branco para melhor formatação
 
-    // Implementação de Movimentação do Bispo
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação do Bispo em diagonal.
+    // --- 3. Movimentação da Torre (usando loop while) ---
+    printf("--- Movimentação da Torre ---\n");
+    printf("A Torre se move %d casas para a direita.\n", MOVIMENTOS_TORRE);
 
-    // Implementação de Movimentação da Torre
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Torre para a direita.
+    // O loop 'while' é usado para repetir um bloco de código
+    // enquanto uma condição é verdadeira.
+    int contador_torre = 0;
+    while (contador_torre < MOVIMENTOS_TORRE) {
+        printf("Direita\n");
+        contador_torre++; // Incrementa o contador para evitar um loop infinito
+    }
+    printf("\n");
 
-    // Implementação de Movimentação da Rainha
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Rainha para a esquerda.
+    // --- 4. Movimentação da Rainha (usando loop do-while) ---
+    printf("--- Movimentação da Rainha ---\n");
+    printf("A Rainha se move %d casas para a esquerda.\n", MOVIMENTOS_RAINHA);
+    
+    // O loop 'do-while' executa o bloco de código pelo menos uma vez
+    // antes de verificar a condição.
+    int contador_rainha = 0;
+    do {
+        printf("Esquerda\n");
+        contador_rainha++; // Incrementa o contador
+    } while (contador_rainha < MOVIMENTOS_RAINHA);
+    
+    printf("\n--- Desafio Nível Novato Concluído! ---\n");
 
-    // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
-
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
-
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
-
-    return 0;
+    return 0; // Retorna 0 para indicar que o programa foi executado com sucesso
 }
