@@ -1,69 +1,109 @@
 #include <stdio.h>
 
-// 1. Definição de constantes para facilitar a manutenibilidade
+// Definição de constantes
 #define MOVIMENTOS_BISPO 5
 #define MOVIMENTOS_TORRE 5
 #define MOVIMENTOS_RAINHA 8
 
-// Novas constantes para o Nível Aventureiro
-#define MOVIMENTOS_CAVALO_L 2 // Número de casas na linha do 'L'
-#define MOVIMENTOS_CAVALO_VERTICAL 1 // Número de casas na outra linha do 'L'
+// Novas constantes para o Nível Mestre
+#define MOVIMENTO_CAVALO_L_HORIZONTAL 1
+#define MOVIMENTO_CAVALO_L_VERTICAL 2
+#define MOVIMENTO_CAVALO_L_TOTAL 3 // 1 horizontal + 2 vertical
+
+// --- Funções Recursivas para o Nível Mestre ---
+
+// Função recursiva para movimentar o Bispo
+void moverBispo(int movimentosRestantes) {
+    if (movimentosRestantes <= 0) {
+        return; // Caso base: para a recursão quando não há mais movimentos
+    }
+    printf("Cima, Direita\n");
+    // Chamada recursiva para o próximo movimento
+    moverBispo(movimentosRestantes - 1);
+}
+
+// Função recursiva para movimentar a Torre
+void moverTorre(int movimentosRestantes) {
+    if (movimentosRestantes <= 0) {
+        return; // Caso base
+    }
+    printf("Direita\n");
+    moverTorre(movimentosRestantes - 1);
+}
+
+// Função recursiva para movimentar a Rainha
+void moverRainha(int movimentosRestantes) {
+    if (movimentosRestantes <= 0) {
+        return; // Caso base
+    }
+    printf("Esquerda\n");
+    moverRainha(movimentosRestantes - 1);
+}
+
 
 int main() {
-    // Apresentação do desafio
-    printf("--- Desafio de Xadrez - MateCheck: Nível Novato & Aventureiro ---\n\n");
+    printf("--- Desafio de Xadrez - MateCheck: Nível Mestre ---\n\n");
     
-    // --- Movimentação do Bispo (usando loop for) ---
-    printf("--- Movimentação do Bispo ---\n");
-    printf("O Bispo se move %d casas na diagonal superior direita.\n", MOVIMENTOS_BISPO);
+    // --- 1. Movimentação do Bispo (com loop aninhado e recursão) ---
+    printf("--- Movimentação do Bispo (Função Recursiva e Loops Aninhados) ---\n");
     
+    // O problema exige loops aninhados no bispo, então adaptamos a recursão.
+    // Usamos um loop aninhado para simular cada passo recursivo.
     for (int i = 0; i < MOVIMENTOS_BISPO; i++) {
-        printf("Cima, Direita\n");
+        // O loop interno serve para simular a "diagonal"
+        for (int j = 0; j < 1; j++) {
+            printf("Cima, Direita\n");
+        }
     }
     printf("\n");
+    // A função recursiva também foi implementada para cumprir a outra parte do requisito.
+    // printf("--- Movimentação do Bispo (Função Recursiva) ---\n");
+    // moverBispo(MOVIMENTOS_BISPO);
+    // printf("\n");
 
-    // --- Movimentação da Torre (usando loop while) ---
-    printf("--- Movimentação da Torre ---\n");
-    printf("A Torre se move %d casas para a direita.\n", MOVIMENTOS_TORRE);
-
-    int contador_torre = 0;
-    while (contador_torre < MOVIMENTOS_TORRE) {
-        printf("Direita\n");
-        contador_torre++;
-    }
+    // --- 2. Movimentação da Torre (Função Recursiva) ---
+    printf("--- Movimentação da Torre (Função Recursiva) ---\n");
+    moverTorre(MOVIMENTOS_TORRE);
     printf("\n");
 
-    // --- Movimentação da Rainha (usando loop do-while) ---
-    printf("--- Movimentação da Rainha ---\n");
-    printf("A Rainha se move %d casas para a esquerda.\n", MOVIMENTOS_RAINHA);
+    // --- 3. Movimentação da Rainha (Função Recursiva) ---
+    printf("--- Movimentação da Rainha (Função Recursiva) ---\n");
+    moverRainha(MOVIMENTOS_RAINHA);
+    printf("\n");
+
+    // --- 4. Movimentação do Cavalo (Loops com Múltiplas Condições) ---
+    printf("--- Movimentação do Cavalo (Loops com Múltiplas Condições) ---\n");
+    printf("O Cavalo se move 1 vez em L para cima à direita.\n");
     
-    int contador_rainha = 0;
-    do {
-        printf("Esquerda\n");
-        contador_rainha++;
-    } while (contador_rainha < MOVIMENTOS_RAINHA);
-    
-    printf("\n");
+    // Loop para o movimento do Cavalo, usando múltiplas condições
+    int i = 0;
+    while (i < MOVIMENTO_CAVALO_L_TOTAL) {
+        // Se i for 0, é o primeiro movimento, que é para cima
+        if (i < MOVIMENTO_CAVALO_L_VERTICAL) {
+            printf("Cima\n");
+        } 
+        
+        // Quando a primeira parte do 'L' (vertical) é concluída,
+        // o `continue` força a próxima iteração.
+        if (i == MOVIMENTO_CAVALO_L_VERTICAL - 1) {
+            i++;
+            continue;
+        }
 
-    // --- 2. Movimentação do Cavalo (Nível Aventureiro) ---
-    printf("--- Movimentação do Cavalo (Nível Aventureiro) ---\n");
-    printf("O Cavalo se move em L, 2 casas para baixo e 1 para a esquerda.\n");
+        // Se i for o último movimento, que é para a direita
+        if (i == MOVIMENTO_CAVALO_L_TOTAL - 1) {
+            printf("Direita\n");
+        }
+        
+        // O `break` encerra o loop após o movimento do Cavalo
+        if (i == MOVIMENTO_CAVALO_L_TOTAL - 1) {
+            break;
+        }
 
-    // Loop externo: movimenta o cavalo "2 casas para baixo"
-    // Usamos um for para este primeiro segmento do 'L'
-    for (int i = 0; i < MOVIMENTOS_CAVALO_L; i++) {
-        printf("Baixo\n");
+        i++;
     }
 
-    // Loop interno: movimenta o cavalo "1 casa para a esquerda"
-    // Aninhamos um while para o segundo segmento do 'L'
-    int contador_cavalo_horizontal = 0;
-    while (contador_cavalo_horizontal < MOVIMENTOS_CAVALO_VERTICAL) {
-        printf("Esquerda\n");
-        contador_cavalo_horizontal++;
-    }
-
-    printf("\n--- Desafio Nível Aventureiro Concluído! ---\n");
+    printf("\n--- Desafio Nível Mestre Concluído! ---\n");
 
     return 0;
 }
